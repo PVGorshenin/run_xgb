@@ -43,10 +43,11 @@ class XGBLogger():
         with open(os.path.join(self.result_dir, 'models', f'model{i_fold}.pickle'), 'wb') as f:
             pickle.dump(model, f)
 
-    def save_preds(self, train_preds: np.ndarray, val_preds: np.ndarray):
+    def save_train_preds(self, train_preds: np.ndarray):
         np.savetxt(os.path.join(self.result_dir, 'preds', 'train_preds.csv'), train_preds, delimiter=",")
-        if val_preds is not None:
-            np.savetxt(os.path.join(self.result_dir, 'preds', 'val_preds.csv'), val_preds, delimiter=",")
+
+    def save_val_preds(self, val_preds: np.ndarray):
+        np.savetxt(os.path.join(self.result_dir, 'preds', 'val_preds.csv'), val_preds, delimiter=",")
 
     def save_params(self, booster_params: dict, train_params: dict, log_params: dict):
         with open(os.path.join(self.result_dir, 'params', 'booster_params.csv'), 'w') as f:
