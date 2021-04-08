@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import xgboost as xgb
 from typing import Tuple, Union
-from .logger import XGBLogger
+from .logging_utils import common_logging
 
 
 def _get_data(train_df, val_df, kfold, booster_params):
@@ -33,17 +33,14 @@ def _predict_n_save_val(preds_val: np.ndarray, xgb_model, dval, logger, booster_
     return preds_val
 
 
+@common_logging
 def run_xgb(train_df: pd.DataFrame, val_df: pd.DataFrame, train_cols: list, label_cols: Union[str, list],
-            booster_params: dict, train_params: dict, log_params: dict, kfold, metric) -> Tuple[np.ndarray]:
+            booster_params: dict, train_params: dict, log_params: dict, kfold, metric, logger) -> Tuple[np.ndarray]:
     """
     Runs xgboost in KFold cycle
 
     Simple runner. One train, one test.
     """
-    logger = XGBLogger(result_dir=log_params['result_path'],
-                       description=log_params['description'])
-    logger._make_resultdir_n_subdirs()
-    logger.save_description()
     preds_train, dval, preds_val = _get_data(train_df, val_df[train_cols], kfold, booster_params)
     for i_fold, (train_index, test_index) in enumerate(kfold.split(train_df)):
         dtrain_train = xgb.DMatrix(train_df[train_cols].iloc[train_index, :], train_df[label_cols].iloc[train_index])
@@ -62,6 +59,4 @@ def run_xgb(train_df: pd.DataFrame, val_df: pd.DataFrame, train_cols: list, labe
             preds_val = _predict_n_save_val(preds_val, xgb_model, dval, logger, booster_params, kfold, i_fold)
             if label_cols in val_df.columns:
                 logger.calc_metric(metric, preds_val, val_df[label_cols].values)
-    logger.save_train_preds(preds_train)
-    logger.save_params(booster_params, train_params, log_params)
     return (preds_train, preds_val)
