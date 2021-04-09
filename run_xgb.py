@@ -33,13 +33,16 @@ def _predict_n_save_val(preds_val: np.ndarray, xgb_model, dval, logger, booster_
     return preds_val
 
 
-@common_logging
 def run_xgb(train_df: pd.DataFrame, val_df: pd.DataFrame, train_cols: list, label_cols: Union[str, list],
             booster_params: dict, train_params: dict, log_params: dict, kfold, metric, logger) -> Tuple[np.ndarray]:
     """
     Runs xgboost in KFold cycle
 
     Simple runner. One train, one test.
+    :param train_df: dataset to pass in kfold
+    :param val_df: dataset to predict (no usage in training)
+    :param logger: always None, overwritten in common_logging function
+    :return: preds_train, preds_val
     """
     preds_train, dval, preds_val = _get_data(train_df, val_df[train_cols], kfold, booster_params)
     for i_fold, (train_index, test_index) in enumerate(kfold.split(train_df)):
