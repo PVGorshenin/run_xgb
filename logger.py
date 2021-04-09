@@ -46,8 +46,8 @@ class XGBLogger():
     def save_train_preds(self, train_preds: np.ndarray):
         np.savetxt(os.path.join(self.result_dir, 'preds', 'train_preds.csv'), train_preds, delimiter=",")
 
-    def save_val_preds(self, val_preds: np.ndarray):
-        np.savetxt(os.path.join(self.result_dir, 'preds', 'val_preds.csv'), val_preds, delimiter=",")
+    def save_val_preds(self, val_preds: np.ndarray, i_fold):
+        np.savetxt(os.path.join(self.result_dir, 'preds', f'val_preds{i_fold}.csv'), val_preds, delimiter=",")
 
     def save_params(self, booster_params: dict, train_params: dict, log_params: dict):
         with open(os.path.join(self.result_dir, 'params', 'booster_params.csv'), 'w') as f:

@@ -1,4 +1,4 @@
-from .logger import XGBLogger
+from logger import XGBLogger
 from functools import wraps
 
 
