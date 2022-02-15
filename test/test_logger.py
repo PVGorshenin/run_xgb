@@ -3,7 +3,7 @@ sys.path.append('..')
 
 import numpy as np
 import os
-from logger import XGBLogger
+from run_xgb.logger import XGBLogger
 from pytest import fixture
 from scipy import stats
 from sklearn.metrics import accuracy_score, mean_absolute_error

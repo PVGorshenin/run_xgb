@@ -3,7 +3,7 @@ sys.path.append('..')
 
 import numpy as np
 import pandas as pd
-from check_importance import _measure_target_response, _except_zero_div
+from run_xgb.check_importance import _measure_target_response, _except_zero_div
 from pytest import fixture
 
 @fixture
