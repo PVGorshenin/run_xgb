@@ -1,4 +1,4 @@
-from logger import XGBLogger
+from .logger import XGBLogger
 from functools import wraps
 
 
@@ -31,7 +31,7 @@ def common_logging(func):
             _save_val_preds(logger, preds_val, kwargs['booster_params'], kwargs['kfold'], i_fold)
             logger.save_model(model_lst[i_fold], i_fold)
             if (kwargs['val'] is not None) & (kwargs['val_labels'] is not None):
-                logger.calc_metric(kwargs['metric'], preds_val[i_fold, :, :], kwargs['val_labels'].values)
+                logger.calc_metric(kwargs['metric'], preds_val[i_fold, :], kwargs['val_labels'].values)
 
         logger.save_train_preds(preds_train)
         logger.save_params(kwargs['booster_params'], kwargs['train_params'], kwargs['log_params'])

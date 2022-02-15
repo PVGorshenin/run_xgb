@@ -1,0 +1,14 @@
+train_params:
+  num_boost_round: 200
+  verbose_eval: 10
+  early_stopping_rounds: 10
+
+booster_params:
+  objective: 'reg:squarederror'
+  nthread: -1
+  eta: .1
+  max_depth: 5
+
+log_params:
+  description: 'proba'
+  result_path: '../data/result'
