@@ -8,7 +8,7 @@ tests of your functions and decrease the amount of boilerplate code.
 
 ### To run
 
-Pass train, booster and log params. Examples could be found in `data/mock/`, train and val
+Pass train, booster and log params. Examples could be found in `config.yaml`, train and val
 datasets, validation algorithm and other params
 
 Example of run:
@@ -39,10 +39,10 @@ validation the step of validation and fit of the model are the same
 
 Inside the simple validation:
 
-`train` - data, chosen for the validation algorithm, by a human or an outer validation algorithm
-`train_train` - data, chosen from `train`, by a validation algorithm to fit the model 
+`train` - data, chosen for the validation algorithm, by a human or an outer validation algorithm  
+`train_train` - data, chosen from `train`, by a validation algorithm to fit the model  
 `train_val` - data, chosen from `train`, by a validation algorithm to validate the model.
-It is used for an early stopping.
+It is used for an early stopping.  
 `val` - data, chosen for the validation between `runs` by a human.
 
 We cannot use val for the early stopping, because we will overfit on the val. And thus we will 
