@@ -14,6 +14,7 @@ def _increase_col_value(df, input_col, increase_koeff, input_change_method):
 
 def _measure_target_response(start_preds: pd.Series, changed_preds:pd.Series, target_measure_method, agg_method):
     assert target_measure_method in ['rel', 'abs', 'mass_rel']
+
     if target_measure_method=='rel':
         rel_delta = (changed_preds - start_preds) / start_preds
         return rel_delta.agg(agg_method)

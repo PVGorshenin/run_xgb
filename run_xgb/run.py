@@ -3,7 +3,7 @@ import pandas as pd
 import xgboost as xgb
 from scipy.sparse.csr import csr_matrix
 from typing import Tuple, Union
-from logging_utils import common_logging
+from run_xgb.logging_utils import common_logging
 
 
 def _get_init_data(train, val, train_cols,  kfold, booster_params):
