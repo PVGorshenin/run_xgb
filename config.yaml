@@ -6,9 +6,20 @@ train_params:
 booster_params:
   objective: 'reg:squarederror'
   nthread: -1
-  eta: .1
+  eta: .03
   max_depth: 5
 
 log_params:
   description: 'proba'
   result_path: '../data/result'
+  save_models: False
+  save_preds: False
+  save_params: False
+
+train_cols: ['aged_70_older',
+             'people_fully_vaccinated_per_hundred',
+             'new_deaths_per_million']
+
+label_col: 'new_deaths_per_million_tomorrow'
+
+
