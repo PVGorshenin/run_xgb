@@ -1,4 +1,4 @@
-#run_xgb
+# run_xgb
 
 ### Description
 
@@ -52,8 +52,20 @@ It is a good practice to have the `stand-alone test`. Because `val` we use to es
 hyperparams. 
 After choosing the best model, we estimate it on the test set to get final metrics 
 
+Variables starting with the `d` - prefix are the same data but packed in DMatrix
+
 ### Logging and saves
 
 The logger creates a folder on the disk in the format `mm-dd-hh` and saves models, predictions,
 labels and metrics inside it
+
+### Feature importance
+
+Feature importance presented in this package aims to measure quantitative input of variable to the target.
+To do so we train the model and then look at the quantitative response of the predicted target in response to
+the increase of variable.
+
+Bad news everyone. If some variables are collinear, changing just one of variables will give 
+inaccurate results. Because in the real world they would change simultaneously, thus leading us to different
+nodes of trees.
 
