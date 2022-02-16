@@ -20,8 +20,9 @@ def _save_val_preds(logger, preds_val, booster_params, kfold, i_fold):
 def common_logging(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
-        logger = XGBLogger(result_dir=kwargs['log_params']['result_path'],
-                           description=kwargs['log_params']['description'])
+        config = kwargs['log_params']
+        logger = XGBLogger(result_dir=config['result_path'],
+                           description=config['description'])
         logger._make_resultdir_n_subdirs()
         logger.save_description()
 
@@ -29,11 +30,14 @@ def common_logging(func):
 
         for i_fold in range(kwargs['kfold'].n_splits):
             _save_val_preds(logger, preds_val, kwargs['booster_params'], kwargs['kfold'], i_fold)
-            logger.save_model(model_lst[i_fold], i_fold)
+            if config['save_models']:
+                logger.save_model(model_lst[i_fold], i_fold)
             if (kwargs['val'] is not None) & (kwargs['val_labels'] is not None):
                 logger.calc_metric(kwargs['metric'], preds_val[i_fold, :], kwargs['val_labels'].values)
 
-        logger.save_train_preds(preds_train)
-        logger.save_params(kwargs['booster_params'], kwargs['train_params'], kwargs['log_params'])
+        if config['save_preds']:
+            logger.save_train_preds(preds_train)
+        if config['save_params']:
+            logger.save_params(kwargs['booster_params'], kwargs['train_params'], kwargs['log_params'])
         return preds_train, preds_val
     return wrapper
