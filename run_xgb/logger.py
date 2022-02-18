@@ -30,6 +30,7 @@ class XGBLogger():
         score = metric(labels, preds)
         with open(os.path.join(self.result_dir, 'meta.txt'), 'a') as meta_file:
             meta_file.writelines(f'val metric score --> {score}' + '\n')
+        return score
 
     def save_description(self):
         with open(os.path.join(self.result_dir, 'meta.txt'), 'w') as meta_file:
