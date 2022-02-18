@@ -1,6 +1,6 @@
 train_params:
-  num_boost_round: 200
-  verbose_eval: 10
+  num_boost_round: 300
+  verbose_eval: 100
   early_stopping_rounds: 10
 
 booster_params:
