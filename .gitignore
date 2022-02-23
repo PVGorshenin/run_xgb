@@ -1,5 +1,6 @@
 *.csv
-data/
+data/*
+!data/img/
 run_xgb.egg-info/
 venv/
 .idea/
