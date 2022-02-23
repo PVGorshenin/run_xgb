@@ -20,7 +20,7 @@ def metric_val(input_vector, matrix_to_search, n_points_in_train_val):
     return (min_point, min_dist)
 
 
-def metric_val(input_vector, matrix_to_search, n_points_in_train_val):
+def metric_val(input_vector, matrix_to_search, n_points_in_train_val, time_reduce_func):
     n_steps = int(np.ceil(matrix_to_search.shape[0] / n_points_in_train_val)) - 1
 
     curr_point = matrix_to_search.shape[0] - 1
@@ -30,7 +30,7 @@ def metric_val(input_vector, matrix_to_search, n_points_in_train_val):
 
         jump = min(n_points_in_train_val, curr_point)
 
-        curr_vector = np.median(matrix_to_search[curr_point - jump:curr_point], 0).reshape(1, -1)
+        curr_vector = time_reduce_func(matrix_to_search[curr_point - jump:curr_point], 0).reshape(1, -1)
         curr_dist = euclidean_distances(curr_vector, input_vector)
 
         if curr_dist < min_dist:
